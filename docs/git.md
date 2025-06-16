@@ -139,34 +139,6 @@ Trong Git có 3 lớp chính:
 
     - **Note:** Use `git rebase` only on private branches (when working alone). Do not use it on shared branches, or on your own branch if rebasing causes conflicts more than once.
 
-## Notes
-
-- Luôn kiểm tra trạng thái của repository bằng `git status` trước khi thực hiện commit hoặc push.
-- Sử dụng `git log` để xem lịch sử commit và kiểm tra các thay đổi đã được lưu.
-- Khi làm việc với nhiều người, hãy thường xuyên pull code để tránh conflict.
-- Nếu xảy ra conflict, hãy giải quyết trước khi tiếp tục làm việc.
-
-### Resolve conflict (conflict xảy ra khi merge/rebase mà có code trong 1 file khác version):
-
-- Lựa chọn:
-
-  ```bash
-    - Bỏ code mình (1)
-    - Bỏ code người ta (2)
-    - Giữ cả 2 (có thể modify) (3)
-  ```
-
-=> Đọc code tự tin thì chọn (1) or (2) or (3). Không tự tin thì kiếm người tạo ra commit conflict với mình để discuss và giải quyết.
-
-- Giải quyết:
-
-  ```bash
-    - Sửa file(s) bị conflict
-    - git add <file(s)>
-    - git commit -m <message>
-    - git push
-  ```
-
 ### git merge vs git rebase
 
 https://blog.git-init.com/differences-between-git-merge-and-rebase-and-why-you-should-care/
@@ -218,14 +190,20 @@ Example:
 
 - `git checkout`:
 
+  - `git checkout -b <new_branch_name>`: create and switch to a new branch
   - `git checkout <branch_name>`: switch branch
   - `git checkout <commit_id>`: switch to specific commit
   - `git checkout <commit_id>|<branch_name> <file_name>`: restore file to a specific commit or branch version
   - `git checkout .`: restore all files to the last committed version (in working directory)
-  - `git checkout -- <file_name>`: Restore file to the last committed version (in working directory)
+  - `git checkout -- <file_name>` == `git checkout HEAD <file_name>`: Restore file to the last committed version (in working directory)
   - `git checkout -`: switch to the previous branch
 
 - `git status` -> provide info: current branch, untracked files, modified files, files ready to commit, conflict.
+
+- `git log` -> view commit history
+
+  - `git log <branch_name>`: view commit history of a specific branch
+  - `git log <commit_id>`: view commit history from a specific commit
 
 - `git reset`:
 
@@ -239,14 +217,42 @@ Example:
   - `git config --unset <key>`: remove config
   - `git config --list`: view all config
 
+## Notes
+
+- Luôn kiểm tra trạng thái của repository bằng `git status` trước khi thực hiện commit hoặc push.
+- Sử dụng `git log` để xem lịch sử commit và kiểm tra các thay đổi đã được lưu.
+- Khi làm việc với nhiều người, hãy thường xuyên pull code để tránh conflict.
+- Nếu xảy ra conflict, hãy giải quyết trước khi tiếp tục làm việc.
+
+### Resolve conflict (conflict xảy ra khi merge/rebase mà có code trong 1 file khác version):
+
+- Lựa chọn:
+
+  ```bash
+    - Bỏ code mình (1)
+    - Bỏ code người ta (2)
+    - Giữ cả 2 (có thể modify) (3)
+  ```
+
+=> Đọc code tự tin thì chọn (1) or (2) or (3). Không tự tin thì kiếm người tạo ra commit conflict với mình để discuss và giải quyết.
+
+- Giải quyết:
+
+  ```bash
+    - Sửa file(s) bị conflict
+    - git add <file(s)>
+    - git commit -m <message>
+    - git push
+  ```
+
 ## GUI tool
 
-- Git cola:
+- Git cola: https://git-cola.github.io/
 
   - View the status of branches and supports full commands (commit, push, pull, etc.)
   - Review changes before committing
   - Easily commit parts of a file or revert changes
 
-- gitk: view commit history
+- gitk: view commit history (https://git-scm.com/docs/gitk)
 
 - Git cheat sheet: https://education.github.com/git-cheat-sheet-education.pdf
