@@ -19,9 +19,9 @@
 Trong Git có 3 lớp chính:
 | Mức | Mô tả |
 | ---------------------------- | -------------------------------------------------------------- |
-| 🌐 **Remote branch** | Branch trên server thực sự chứa dữ liệu (`github.com`, `gitlab.com`, `bitbucket` v.v.) |
-| 👀 **Remote-tracking branch** | Như `origin/main`, `origin/feature1` trên máy (cache) |
-| 💻 **Local branch** | Như `main`, `feature1` — nơi làm việc thực tế |
+| 🌐 **Remote branch** | Branch on the actual server (`github.com`, `gitlab.com`, `bitbucket` v.v.) |
+| 👀 **Remote-tracking branch** | `origin/main`, `origin/feature` on working directory |
+| 💻 **Local branch** | `main`, `feature` on working directory |
 
 ## Steps for working on a project
 
@@ -30,18 +30,18 @@ Trong Git có 3 lớp chính:
 - Generate ssh key: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
   ```bash
-  ssh-keygen -t ed25519 -C "your_email@example.com"
+  ssh-keygen -t ed25519 -C "<email or any name>"
   ```
 
 - Add public key to github: https://github.com/settings/keys
 
 - Config file `~/.ssh/config`:
 
-  ```
-  Host github_havs => alias, đặt tùy thích, đặt gì thì khi clone code phải sử dụng như vậy
-    HostName github.com => domain thật sự của git server sử dụng
-    User git => mặc định, ko chỉnh sửa
-    IdentityFile ~/.ssh/havs/id_rsa_havs => file private key pair với public key đã đăng ký
+  ```bash
+  Host github_havs => alias, choose as you like, it must be used when cloning code
+    HostName github.com => actual domain of the git server
+    User git => default, does not need to change
+    IdentityFile ~/.ssh/havs/id_rsa_havs => file private key pair path
   ```
 
 **Note:** Configure multiple ssh keys
@@ -57,10 +57,17 @@ Trong Git có 3 lớp chính:
 - Clone repo: `git clone <git-url>`
 
   ```bash
-  git clone git@github_havs:vosonha/RoR-Training.git
+  git clone git@github_havs:sonha-min/RoR-Training.git
   ```
 
 - Git config user name and email:
+
+  - Local config -> applies only to the current repository.
+
+    ```bash
+    git config --local user.name <name>
+    git config --local user.email <email>
+    ```
 
   - Global config -> applies to all repositories on your machine.
 
@@ -73,12 +80,6 @@ Trong Git có 3 lớp chính:
 
     ```bash
       git config --global --unset <key>
-    ```
-
-  - Local config -> applies only to the current repository.
-    ```bash
-    git config --local user.name <name>
-    git config --local user.email <email>
     ```
 
 - View config: `git config --list`
@@ -104,6 +105,7 @@ Trong Git có 3 lớp chính:
 
         ```bash
           git branch --set-upstream-to=<remote>/<branch>
+          git push -u <remote> <branch>
         ```
 
       - Unset upstream branch for current branch:
@@ -135,7 +137,7 @@ Trong Git có 3 lớp chính:
 
   - `git fetch` -> `git merge <branch name>` or `git rebase <branch name>`
 
-    - **Note:** git rebase: sử dụng trên nhánh private (làm 1 mình). Không sử dụng trên nhánh làm chung or nhánh làm một mình bà rebase báo conflict 2 lần.
+    - **Note:** Use `git rebase` only on private branches (when working alone). Do not use it on shared branches, or on your own branch if rebasing causes conflicts more than once.
 
 ## Notes
 
@@ -154,7 +156,7 @@ Trong Git có 3 lớp chính:
     - Giữ cả 2 (có thể modify) (3)
   ```
 
-=> Đọc code tự tin thì chọn (1) or (2) or (3). Ko tự tin thì kiếm người tạo ra commit conflict với mình để discuss và giải quyết.
+=> Đọc code tự tin thì chọn (1) or (2) or (3). Không tự tin thì kiếm người tạo ra commit conflict với mình để discuss và giải quyết.
 
 - Giải quyết:
 
@@ -179,7 +181,7 @@ Example:
           D---E---F  (feature)
   ```
 
-- `git merge feature` (từ `main`)
+- `git merge feature` (from `main`)
 
   ```bash
     A---B---C-------G   (main)
@@ -187,44 +189,17 @@ Example:
           D---E---F     (feature)
   ```
 
-  `-> G là merge commit`
+  `-> G is a merge commit`
 
-- `git rebase main` (từ `feature`)
+- `git rebase main` (from `feature`)
 
   ```bash
     A---B---C---D'---E'---F'  (feature)
   ```
 
-  `-> D', E', F' là các commit mới, không có merge commit`
+  `-> D', E', F' is the new commit history for feature branch, does not create a merge commit`
 
 ## Common commands
-
-- `git stash`: tạm thời bỏ những thay đổi lên stash để chuyển nhánh.
-
-  - `git stash list`: view stashed list
-  - `git stash apply`: apply thay đổi, vẫn giữ lại code changes trên stash
-  - `git stash pop`: apply and pop code change trên stash
-    https://git-scm.com/docs/git-stash#_description
-
-- `git checkout`:
-
-  - Chuyển nhánh: `git checkout <branch_name>`
-  - Chuyển version file: `git checkout <commit_id>|<branch_name> <file_name>`
-  - Tạo nhánh mới: `git checkout -b <new_branch_name>`
-
-- `git status` -> provide info: current branch, untracked files, modified files, files ready to commit, conflict.
-
-- `git reset`:
-
-  - `--mix` (default): bỏ lịch sử, giữ code, ko add changes vào index
-  - `--soft`: bỏ lịch sử, giữ code, add changes vào index (ko add untracked files)
-  - `--hard`: bỏ code, bỏ lịch sử
-
-- `git config`:
-
-  - `git config [scope] <key> <value>`: set config
-  - `git config --unset <key>`: remove config
-  - `git config --list`: view all config
 
 - `git remote`:
 
@@ -232,16 +207,46 @@ Example:
   - `git remote remove <remote name>`: remove remote
   - `git remote add <remote name> git@alias_name:git_repo_path`: add remote
 
+- `git stash`: temporarily store changes that are not yet committed (does not include untracked files by default) -> (First In, Last Out)
+
+  - `git stash list`: view stashed list
+  - `git stash apply`: apply changes, keeping code changes in stash
+  - `git stash pop`: apply and pop code change from stash
+  - `git stash drop`: remove a specific stash
+  - `git stash clear`: remove all stash
+    https://git-scm.com/docs/git-stash#_description
+
+- `git checkout`:
+
+  - `git checkout <branch_name>`: switch branch
+  - `git checkout <commit_id>`: switch to specific commit
+  - `git checkout <commit_id>|<branch_name> <file_name>`: restore file to a specific commit or branch version
+  - `git checkout .`: restore all files to the last committed version (in working directory)
+  - `git checkout -- <file_name>`: Restore file to the last committed version (in working directory)
+  - `git checkout -`: switch to the previous branch
+
+- `git status` -> provide info: current branch, untracked files, modified files, files ready to commit, conflict.
+
+- `git reset`:
+
+  - `--mixed` (default): removes commit history, keeps code changes, but does not add changes to the index (staging area)
+  - `--soft`: removes commit history, keeps code changes, and adds changes to the index (without untracked files)
+  - `--hard`: removes all changes and commit history
+
+- `git config`:
+
+  - `git config [scope] <key> <value>`: set config
+  - `git config --unset <key>`: remove config
+  - `git config --list`: view all config
+
 ## GUI tool
 
 - Git cola:
 
-  - view status of branch + support full commands (commit, push, pull...)
+  - View the status of branches and supports full commands (commit, push, pull, etc.)
+  - Review changes before committing
+  - Easily commit parts of a file or revert changes
 
-  - review change trước khi commit
-
-  - commit 1 phần file hay revert change dễ dàng
-
-- gitk: view history
+- gitk: view commit history
 
 - Git cheat sheet: https://education.github.com/git-cheat-sheet-education.pdf
