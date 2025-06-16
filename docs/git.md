@@ -7,10 +7,10 @@
 
 ## Git Workflow
 
-- **Working directory**: It’s your local workspace, where you make changes directly to files.
-- **Staging area**: A middle layer that holds changes you’ve prepared to commit. You can selectively add or remove changes in the staging area before committing —> giving you precise control over what gets saved to version history.
-- **Local repository**: A version of the repository stored on your local machine. It contains the full history of commits and allows you to work offline.
-- **Remote repository**: A version of the repository hosted on a server (e.g., GitHub, GitLab, Bitbucket). It enables collaboration by letting multiple people clone the code, push their changes, and pull updates from others.
+- **🗂️ Working directory**: It’s your local workspace, where you make changes directly to files.
+- **🗒️ Staging area (Index)**: A middle layer that holds changes you’ve prepared to commit. You can selectively add or remove changes in the staging area before committing —> giving you precise control over what gets saved to version history.
+- **💻 Local repository**: A version of the repository stored on your local machine. It contains the full history of commits and allows you to work offline.
+- **🌐 Remote repository**: A version of the repository hosted on a server (e.g., GitHub, GitLab, Bitbucket). It enables collaboration by letting multiple people clone the code, push their changes, and pull updates from others.
 
 ![Git Space](https://github.com/vosonha/RoR-Training/blob/main/lib/images/gitWorkflow.png)
 
@@ -19,9 +19,9 @@
 Trong Git có 3 lớp chính:
 | Mức | Mô tả |
 | ---------------------------- | -------------------------------------------------------------- |
-| ✅ **Remote branch** | Branch trên server thực sự chứa dữ liệu (`github.com`, `gitlab.com`, `bitbucket` v.v.) |
-| ✅ **Remote-tracking branch** | Như `origin/main`, `origin/feature1` trên máy (cache) |
-| ✅ **Local branch** | Như `main`, `feature1` — nơi làm việc thực tế |
+| 🌐 **Remote branch** | Branch trên server thực sự chứa dữ liệu (`github.com`, `gitlab.com`, `bitbucket` v.v.) |
+| 👀 **Remote-tracking branch** | Như `origin/main`, `origin/feature1` trên máy (cache) |
+| 💻 **Local branch** | Như `main`, `feature1` — nơi làm việc thực tế |
 
 ## Steps for working on a project
 
@@ -46,7 +46,7 @@ Trong Git có 3 lớp chính:
 
 **Note:** Configure multiple ssh keys
 
-- Generate keys => should create sub folder for each key
+- Generate keys => should create sub folder for each key (e.g., `~/.ssh/havs/.`, `~/.ssh/nus/ken/.`, `~/.ssh/nus/tom/.`)
 
 - Add public keys to github accounts
 
@@ -86,7 +86,7 @@ Trong Git có 3 lớp chính:
 
 ### Working on branch
 
-- View local branches and current branch: `git branch`
+- View local branches and current branch: `git branch` (`-a` to view all branches including remote branches, `-r` to view remote branches only)
 
 - Create new branch: `git checkout -b <branch name>` (`-B` create new branch or reset existing branch)
 
@@ -212,14 +212,12 @@ Example:
   - Chuyển version file: `git checkout <commit_id>|<branch_name> <file_name>`
   - Tạo nhánh mới: `git checkout -b <new_branch_name>`
 
-- `git status` -> provide info: current branch, file untracked, file modified, file ready to commit, conflict.
+- `git status` -> provide info: current branch, untracked files, modified files, files ready to commit, conflict.
 
 - `git reset`:
 
   - `--mix` (default): bỏ lịch sử, giữ code, ko add changes vào index
-
-  - `--soft`: bỏ lịch sử, giữ code
-
+  - `--soft`: bỏ lịch sử, giữ code, add changes vào index (ko add untracked files)
   - `--hard`: bỏ code, bỏ lịch sử
 
 - `git config`:
