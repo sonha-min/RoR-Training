@@ -1,6 +1,6 @@
 class Truck
   def self.default_make
-    "mac"
+    'mac'
   end
 
   def make1
@@ -14,11 +14,13 @@ end
 
 class BigTruck < Truck
   def self.default_make
-    "bigmac"
+    'bigmac'
   end
 end
 
 test = BigTruck.new
 
-test.make1 => 'bigmac'
-test.make2 => 'mac'
+test.make1
+# => 'bigmac'
+test.make2
+# => 'mac'
