@@ -160,6 +160,56 @@ end
 - `Symbol`: lightweight, immutable identifier (e.g., `:my_symbol`, `:name`)
 - `NilClass`: represents "nothing" or "no value" (`nil`)
 
+### Functions/Methods
+
+- Define a method using `def` keyword
+- Methods can take parameters and return values
+
+```ruby
+def add(a, b)
+  return a + b
+end
+result = add(5, 10) # -> 15
+```
+
+### Classes and Objects
+
+- Define a class using `class` keyword
+- Create objects (instances) of the class using `new` method
+
+```ruby
+class Dog
+  def bark
+    puts "Woof!"
+  end
+end
+
+dog = Dog.new
+dog.bark # -> "Woof!"
+```
+
+### Modules
+
+- Define a module using `module` keyword, which is a collection of methods and constants
+- Include modules in classes using `include` or `extend`
+  - `include`: adds module methods as instance methods
+  - `extend`: adds module methods as class methods
+
+```ruby
+module Barking
+  def bark
+    puts "Woof!"
+  end
+end
+
+class Dog
+  include Barking
+end
+
+dog = Dog.new
+dog.bark # -> "Woof!"
+```
+
 ### Operators
 
 - Arithmetic Operators: `+`, `-`, `*`, `/`, `%`, `**`
@@ -305,57 +355,7 @@ end
 
 - Conditional Statements: `if`, `elsif`, `else`, `unless`, `case`
 - Loops: `while`, `until`, `for`, `each`, `times`, `loop`
-- Exception Handling: `begin`, `rescue`, `ensure`, `raise`
-
-### Functions/Methods
-
-- Define a method using `def` keyword
-- Methods can take parameters and return values
-
-```ruby
-def add(a, b)
-  return a + b
-end
-result = add(5, 10) # -> 15
-```
-
-### Classes and Objects
-
-- Define a class using `class` keyword
-- Create objects (instances) of the class using `new` method
-
-```ruby
-class Dog
-  def bark
-    puts "Woof!"
-  end
-end
-
-dog = Dog.new
-dog.bark # -> "Woof!"
-```
-
-### Modules
-
-- Define a module using `module` keyword, which is a collection of methods and constants
-- Include modules in classes using `include` or `extend`
-  - `include`: adds module methods as instance methods
-  - `extend`: adds module methods as class methods
-
-```ruby
-module Barking
-  def bark
-    puts "Woof!"
-  end
-end
-
-class Dog
-  include Barking
-end
-
-dog = Dog.new
-dog.bark # -> "Woof!"
-```
+- break, next, redo, retry Statements: https://www.tutorialspoint.com/ruby/ruby_loops.htm
 
 ### Common Methods
 
@@ -363,3 +363,23 @@ dog.bark # -> "Woof!"
 - Array methods: `push`, `pop`, `shift`, `unshift`, `each`, `map`, `select`, `reject`, `sort`, `include?`, `compact`, `flatten`, `uniq`, `empty?`
 - Hash methods: `keys`, `values`, `each`, `merge`, `delete`, `fetch`, `has_key? (key?)`, `has_value? (value?)`
 - Numeric methods: `to_i`, `to_f`, `round`, `ceil`, `abs`
+
+### Exceptions
+
+- Handle exceptions using `begin`, `rescue`, and `ensure` blocks
+- Raise exceptions using `raise` keyword
+
+```ruby
+begin
+  # Code that may raise an exception
+  result = 10 / 0
+rescue ZeroDivisionError
+  puts "Division by zero error occurred"
+rescue StandardError => e
+  puts "An error occurred: #{e.message}"
+else
+  puts "Otherwise block executed if no exception"
+ensure
+  puts "This will always execute"
+end
+```
